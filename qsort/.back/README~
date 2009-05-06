@@ -1,0 +1,6 @@
+Key files :
+
+1. qsort.c - the quicksort template
+2. ufunc/* - #include variants for major C types
+3. t/*     - test files.
+

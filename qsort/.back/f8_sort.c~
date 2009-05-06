@@ -1,0 +1,6 @@
+#ifndef F8_SORT
+#define F8_SORT
+#define QSORT_TY unsigned long
+#define QS_(name) f4_## name
+#include "qsort.c"
+#endif

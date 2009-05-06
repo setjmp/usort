@@ -1,0 +1,9 @@
+include defs.mk
+
+.PHONY : clean all
+
+all :
+	cd t/ ; make all
+
+clean : 
+	cd t/ ; make clean

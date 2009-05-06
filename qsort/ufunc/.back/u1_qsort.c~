@@ -1,0 +1,6 @@
+#ifndef U1_SORT
+#define U1_SORT
+#define QS_(name) u1_q## name
+#define QSORT_TY unsigned char
+#include "qsort.c"
+#endif

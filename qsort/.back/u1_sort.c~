@@ -1,0 +1,2 @@
+#define QSORT_TY char
+#define QS_(name) u1_## name

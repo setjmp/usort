@@ -1,0 +1,140 @@
+/* Bentley,McIlroy: "Engineering a Sort Function".  #include'r MUST define: */
+/*   S_(name) S_IDX_T S_VAL_T {S_CMP|(S_LESS,S_LESSEQ,S_EQ)}(x,y) and MAY   */
+/* define S_RECV S_PASS S_SWAP, if desired. NOTE: CMP/SWAP take *ADDRS*.    */
+#include "cb/memswap.c"
+#ifndef S_LKG
+#define S_LKG  static inline
+#endif
+#ifndef S_ILKG
+#define S_ILKG static inline
+#endif
+#ifndef S_
+#define S_(x) S_##x
+#endif
+#ifdef S_CMP            /* Allow optimization to single comparison op */
+#ifndef S_LESS
+#define S_LESS(a,b)     (S_CMP(a,b) < 0)
+#endif
+#ifndef S_LESSEQ
+#define S_LESSEQ(a,b)   (S_CMP(a,b) <= 0)
+#endif
+#ifndef S_EQ
+#define S_EQ(a,b)       (S_CMP(a,b) == 0)
+#endif
+#endif
+#ifndef S_STRIDE   /* If the below S_SWAP funcs are inadequate (e.g. objects  */
+#define S_STRIDE 1 /* are not sized to be sizeof(S_VAL_T)), then the includer */
+#endif             /* will want to define STRIDE=sz/sizeof(VAL_T)&S_SWAP(i,j).*/
+#ifndef S_RECV     /* These defs may, in turn, require run-time metadata.     */
+#define S_RECV     /* So, we allow includer to define S_RECV to receive extra */
+#endif             /* function parameters at the entry point, S_SORT, and also*/
+#ifndef S_PASS     /* define S_PASS to propagate them to CMP/SWAP uses.       */
+#define S_PASS     /* Since these default to empty strings, these definitions */
+#endif             /* MUST include a leading ",".                             */
+#ifndef S_SWAP  /* This works when compiler knows how to copy an S_VAL_T */
+static inline void S_(swap)(S_VAL_T *i, S_VAL_T *j) {
+    S_VAL_T t = *i;
+    *i        = *j;
+    *j        =  t;
+}
+#define S_SWAP S_(swap)
+#endif /* S_SWAP */
+#ifndef S_VSWAP
+#define S_VSWAP(i,j,n)  memswap(i, j, (n)*sizeof *i)
+#endif /* S_VSWAP */
+#ifndef S_INSERTION
+#define S_INSERTION 23
+#endif
+#ifndef S_TUKEY9TH
+#define S_TUKEY9TH  64
+#endif
+#ifndef S_MIN
+#define S_MIN(x,y) ((x) < (y) ? (x) : (y))
+#endif
+      
+S_ILKG void S_(insort)(S_VAL_T *x, S_IDX_T N  S_RECV) {
+    S_VAL_T  *l = x, *m, *n = x + N*S_STRIDE; /* binsearch a bad optim */
+    for (m = x + S_STRIDE;  m < n;  l = m, m += S_STRIDE) {
+#ifdef S_BIGOBJ /* Up to 2+X faster for objects >>~ 64 Bytes w/gcc on core2 */
+        for (/**/; l >= x && S_LESS(m, l); l -= S_STRIDE)
+            /**/;
+        S_VAL_T t[S_STRIDE];    /*NOTE l=x and l=m matter for this branch */
+        memcpy (t, m, sizeof t);
+        memmove(l + 2*S_STRIDE, l + 1*S_STRIDE, (m - l - 1*S_STRIDE)*sizeof *x);
+        memcpy (l + 1*S_STRIDE, t, sizeof t);
+#else           /* Up to ~2X faster for objects <<~ 64 Bytes w/gcc on core2 */
+        for (l = m; l > x && S_LESS(l, l - S_STRIDE); l -= S_STRIDE)
+            S_SWAP(l, l - S_STRIDE);
+#endif
+    }
+}
+
+S_ILKG S_VAL_T *S_(med3)(S_VAL_T *a, S_VAL_T *b, S_VAL_T *c  S_RECV) {
+    return S_LESS(a,b) ? (S_LESS(b,c) ? b : (S_LESS(a,c) ? c : a) )
+                       : (S_LESS(c,b) ? b : (S_LESS(a,c) ? a : c) );
+}
+
+S_ILKG S_VAL_T *S_(pivot)(S_VAL_T *x, S_IDX_T N  S_RECV) {
+    S_VAL_T *l = x,
+            *m = x + (N >> 1)*S_STRIDE,
+            *n = x + (N - 1)*S_STRIDE;
+    if (N > S_TUKEY9TH) {
+        S_IDX_T D = (N >> 3)*S_STRIDE;
+        l = S_(med3)(    l    , l + D, l + 2 * D  S_PASS);
+        m = S_(med3)(  m - D  ,   m  ,   m + D    S_PASS);
+        n = S_(med3)(n - 2 * D, n - D,     n      S_PASS);
+    }
+    return S_(med3)(l, m, n  S_PASS);
+}
+
+S_LKG void S_SORT(S_VAL_T *x, S_IDX_T N  S_RECV) {
+    S_VAL_T *a, *b, *c, *d,  *m, *n;
+    long     r; int swap_flg;
+L:  swap_flg = 0;
+    if (N <= S_INSERTION) { S_(insort)(x, N  S_PASS); return; }
+    m = S_(pivot)(x, N  S_PASS);
+    S_SWAP(x, m);
+    a = b = x + S_STRIDE;
+    c = d = x + (N - 1) * S_STRIDE;
+    for (;;) {                          /* Fat partition (good w/many ties) */
+        for (/**/; b <= c && S_LESSEQ(b, x); b += S_STRIDE)
+            if (S_EQ(x, b))
+                { S_SWAP(a, b); a += S_STRIDE; swap_flg = 1; }
+        for (/**/; b <= c && S_LESS(x, c); c -= S_STRIDE)
+            if (S_EQ(x, c))
+                { S_SWAP(c, d); d -= S_STRIDE; swap_flg = 1; }
+        if (b > c)
+            break;
+        S_SWAP(b, c); b += S_STRIDE; c -= S_STRIDE; swap_flg = 1;
+    }
+    if (!swap_flg)                      /* No Swaps: switch to insort */
+        { S_(insort)(x, N  S_PASS); return; }
+    n = x + N*S_STRIDE;
+    r = S_MIN(a - x, b - a);            S_VSWAP(x, b - r, r / S_STRIDE);
+    r = S_MIN(d - c, n - d - S_STRIDE); S_VSWAP(b, n - r, r / S_STRIDE);
+    if ((r = b - a) > S_STRIDE)         /* Recurse */
+        S_SORT(x, r / S_STRIDE  S_PASS);
+    if ((r = d - c) > S_STRIDE) {       /* Iterate rather than recurse */
+        x = n - r;                      /*XXX should recurse on smaller side */
+        N = r / S_STRIDE;
+        goto L;
+    }
+}
+#ifndef S_PRESERVE
+#  undef S_IDX_T
+#  undef S_VAL_T
+#  undef S_LESS
+#  undef S_LESSEQ
+#  undef S_EQ
+#  undef S_CMP
+#  undef S_SORT
+#  undef S_INSERTION
+#  undef S_TUKEY9TH
+#  undef S_STRIDE
+#  undef S_RECV
+#  undef S_PASS
+#  undef S_SWAP
+#  undef S_VSWAP
+#  undef S_MIN
+#  undef S_
+#endif /* S_PRESERVE */

@@ -1,0 +1,19 @@
+To run type:
+
+make cmp
+
+which will compile and run a test/timing harness for major C types.
+
+Naming code for types:
+
+uN - unsigned int types of size N bytes
+sN - signed int types of size N bytes
+fN - N byte floating point numbers
+
+Key files :
+
+0. ./Makefile 
+1. ./qsort.c  - the quicksort template
+2. ./ufunc/*  - #include variants for major C types
+3. ./t/*      - test files.
+4. ./datetime - library for timings, symbolic link dereferenced in tar ball. 
