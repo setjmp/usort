@@ -34,6 +34,8 @@
 
 */
 
+#include "../common/compare.c"
+
 #ifndef QSORT
 #define QSORT
 #if !defined LIBBING_AS_QSORT
@@ -42,13 +44,10 @@
 #  define QSORT_LKG 
 #endif
 
-#ifndef QSORT_TY
-#  error "qsort.c imported without QSORT_TY definition."
-#endif
 
 /* can redefine with type_ */
-#ifndef QS_
-#  define QS_(name) QS_##name
+#ifndef QSORT_
+#  define QSORT_(name) QSORT_##name
 #endif
 
 #include "swap.c" 
@@ -56,41 +55,16 @@
 #define QSORT_ISORT_SWITCH 32
 #define QSORT_NINTHER_SWITCH 64
 
-/* Comparisons... default to arithmatic */
-#ifndef QSORT_EQ
-#  define QSORT_EQ(a,b) (*(a) == *(b))
-#endif
-#ifndef QSORT_LT
-#  define QSORT_LT(a,b) (*(a) < *(b))
-#endif
-#ifndef QSORT_LE
-#  define QSORT_LE(a,b) (*(a) <= *(b))
-#endif
-
-#define QSORT_MIN(a,b) ((a) < (b) ? (a) : (b))
 
 /* implements median of 3 "the ninther." Argumments are addresses. */
 #define QSORT_NINTHER(a,b,c)                                            \
-    (QSORT_LT((a),(b)) ? (QSORT_LT((b),(c)) ? (b) :                     \
-                          QSORT_LT((a),(c)) ? (c) : (a))                \
-     : (QSORT_LT((c),(b)) ? (b) : QSORT_LT((c),(a)) ? (c) : (a)))
+    (CSORT_LT((a),(b)) ? (CSORT_LT((b),(c)) ? (b) :                     \
+                          CSORT_LT((a),(c)) ? (c) : (a))                \
+     : (CSORT_LT((c),(b)) ? (b) : CSORT_LT((c),(a)) ? (c) : (a)))
 
 
-static inline void QS_(SWAP)(QSORT_TY *a, QSORT_TY *b) {
-    /* made a function since arguments tend to be incremented by caller */
-    QSORT_TY swap = *a;
-    *a            = *b;
-    *b            = swap;
-}
 
-static inline void QS_(isort)(QSORT_TY* a, const long long len) {    
-    QSORT_TY *x=a+1,*y;
-    for (;x < a + len;x++)
-        for ( y=x; y>a && QSORT_LT(y,(y-1)); y-- )
-            QS_(SWAP)(y,y-1);
-}
-
-static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
+static inline void QSORT_(sort)(QSORT_TY *x, const long long orig_n) {
     long long n = orig_n,s;
     long long ty_sz; /* ,l,h; */ 
     QSORT_TY *p0,*pm,*p1;
@@ -98,7 +72,7 @@ static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
     QSORT_TY pivot;
  ssort_start:
     if (n < 0) fprintf(stderr,"sort error: n < 0: %lld\n",n),exit(1);
-    if (n <= QSORT_ISORT_SWITCH) return QS_(isort)(x,n);
+    if (n <= QSORT_ISORT_SWITCH) return QSORT_(isort)(x,n);
     s=(n>>3), ty_sz=sizeof(QSORT_TY);
     p0=x;pm=x+(n>>1);p1=x+n-1; /* pivot candidates 0,1 from calculus, m for median */
     if (n >= QSORT_NINTHER_SWITCH) {
@@ -111,25 +85,25 @@ static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
     a     = b = x;
     c     = d = x + (n-1);
     for (;;) { 
-        while (b <= c && QSORT_LE(b, &pivot)) { 
-            if (QSORT_EQ(b,&pivot)) QS_(SWAP)(a++,b);  /* repeated pivots treated separately */
+        while (b <= c && CSORT_LE(b, &pivot)) { 
+            if (CSORT_EQ(b,&pivot)) QSORT_(SWAP)(a++,b);  /* repeated pivots treated separately */
             b++; 
         }  
-        while (c >= b && QSORT_LE(&pivot,c)) { 
-            if (QSORT_EQ(c,&pivot)) QS_(SWAP)(d--,c);  
+        while (c >= b && CSORT_LE(&pivot,c)) { 
+            if (CSORT_EQ(c,&pivot)) QSORT_(SWAP)(d--,c);  
             c--; 
         }
         if (b > c) break;
-        QS_(SWAP)(b++,c--);
+        QSORT_(SWAP)(b++,c--);
     }
-    s = QSORT_MIN(a-x,b-a); /* repeat pivot movement */
-    //for (l=0,h=(b-x)-s; s ; s--) QS_(SWAP)(&x[l++],&x[h++]); 
+    s = CSORT_MIN(a-x,b-a); /* repeat pivot movement */
+    //for (l=0,h=(b-x)-s; s ; s--) QSORT_(SWAP)(&x[l++],&x[h++]); 
     swap(x , b - s     , s * sizeof(QSORT_TY));
-    s = QSORT_MIN(d-c, (x + n - 1) - d);
-    //for (l=b-x,h=n-s;s;s--) QS_(SWAP)(&x[l++],&x[h++]);
+    s = CSORT_MIN(d-c, (x + n - 1) - d);
+    //for (l=b-x,h=n-s;s;s--) QSORT_(SWAP)(&x[l++],&x[h++]);
     swap(b, x + (n - s), s * sizeof(QSORT_TY));
     if ((b-a) < n-(d-c)) {  /* recurse on smaller first to bound memory usage. */
-        if ((b-a) > 1) QS_(sort)(x, (b-a));
+        if ((b-a) > 1) QSORT_(sort)(x, (b-a));
         if ((n-(d-c)) > 1) { /* avoid procedure call on second recursion. */
             x = x+n-(d-c);
             n = d-c;
@@ -137,7 +111,7 @@ static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
         }
     }
     else {
-        if ((d-c) > 1) QS_(sort)(x + n-(d-c), d-c);
+        if ((d-c) > 1) QSORT_(sort)(x + n-(d-c), d-c);
         if ((b - a) > 1) {
             n = (b-a); 
             goto ssort_start; /* avoid procedure call on second recursion. */
@@ -145,13 +119,14 @@ static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
     }
 }
 
-#undef QS_
-#undef QSORT_MIN
+#undef QSORT_
 #undef QSORT_LKG 
-#undef QSORT_LT
-#undef QSORT_LE
-#undef QSORT_EQ
-#undef QSORT_TY
-#undef QSORT_SWITCH
-#undef QSORT_NINTHER
+
+#undef CSORT_MIN
+#undef CSORT_LT
+#undef CSORT_LE
+#undef CSORT_EQ
+#undef CSORT_TY
+#undef CSORT_SWITCH
+#undef CSORT_NINTHER
 #endif

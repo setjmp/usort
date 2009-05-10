@@ -72,8 +72,9 @@
 /* implements median of 3 "the ninther." Argumments are addresses. */
 #define QSORT_NINTHER(a,b,c)                                            \
     (QSORT_LT((a),(b)) ? (QSORT_LT((b),(c)) ? (b) :                     \
-                            QSORT_LT((a),(c)) ? (c) : (a))            \
+                          QSORT_LT((a),(c)) ? (c) : (a))                \
      : (QSORT_LT((c),(b)) ? (b) : QSORT_LT((c),(a)) ? (c) : (a)))
+
 
 static inline void QS_(SWAP)(QSORT_TY *a, QSORT_TY *b) {
     /* made a function since arguments tend to be incremented by caller */
@@ -91,7 +92,7 @@ static inline void QS_(isort)(QSORT_TY* a, const long long len) {
 
 static inline void QS_(sort)(QSORT_TY *x, const long long orig_n) {
     long long n = orig_n,s;
-    long long ty_sz,l,h; 
+    long long ty_sz; /* ,l,h; */ 
     QSORT_TY *p0,*pm,*p1;
     QSORT_TY *a,*b,*c,*d; /* ,*t; */ /* indices within array */
     QSORT_TY pivot;
