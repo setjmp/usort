@@ -1,5 +1,3 @@
 syntax: glob
 
-.back/*
-*/.back/*
-*/*/.back/*
+.*/.back/.*
