@@ -1,3 +1,4 @@
-syntax: glob
+syntax: regexp
 
-.*/.back/.*
+.*/\.back/.*
+~\.back/.*
