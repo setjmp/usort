@@ -6,12 +6,14 @@
  * (was possibly buggy wrt to prefetching)
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <assert.h>
 #include "s2_sort.h"
+#include <string.h> /* __BYTE_ORDER */
+
+#ifndef __BYTE_ORDER
+#error __FILE__ ": __BYTE_ORDER is not defined!"
+#endif
+#if __BYTE_ORDER == __BIG_ENDIAN
+#include <stdlib.h>
 
 #include "isort/ufunc/s2_isort.c"
 
@@ -22,12 +24,12 @@
 
 /* implements in place u4 radix sort. */
 
-S2_SORT_LKG void s2_sort(signed short* restrict a, const long sz) {
+S2_SORT_LKG void s2_sort(signed short *a, const long sz) {
     long j;
     unsigned pos;
     long n, sum0=0 , sum1=0 , tsum=0;
-    signed short *reader, *writer, * restrict buf;
-    long * restrict b0, * restrict b1;
+    signed short *reader, *writer, *buf;
+    long *b0, *b1;
     if (sz < 32) { return s2_isort(a,sz);}
     buf  = (signed short*) malloc(sz * sizeof(signed short));
     b0   = calloc(HIST_SIZE * 2, sizeof(long));
@@ -62,8 +64,12 @@ S2_SORT_LKG void s2_sort(signed short* restrict a, const long sz) {
     free(b0);
 }
 
-#undef REFRESH
 #undef _0
 #undef _1
-#undef _2
 #undef HIST_SIZE
+
+#else /* endian */
+#define QS_(name) s2_## name 
+#define QSORT_TY short
+#include "../qsort/qsort.c"
+#endif

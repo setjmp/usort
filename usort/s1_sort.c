@@ -14,7 +14,7 @@
 
 /* implements in place u1 bucket sort. */
 
-S1_SORT_LKG void s1_sort(char* restrict a, const long sz) {
+S1_SORT_LKG void s1_sort(char *a, const long sz) {
     long j;
     long n;
     char *writer=a; 

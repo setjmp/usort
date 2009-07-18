@@ -1,8 +1,8 @@
 
 #define TY unsigned char
 #define TY_FMT "%d"
-#include "../ufunc/u1_qsort.c"
-#define QS u1_qsort
+#include "../ufunc/u1_sort.c"
+#define QS u1_sort
 #include "qsort-cmp.c"
 
 

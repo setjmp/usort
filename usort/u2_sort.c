@@ -6,22 +6,23 @@
  * (was possibly buggy wrt to prefetching)
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <assert.h>
 #include "u2_sort.h"
+#include <string.h>  /* __BYTE_ORDER */
+
+#ifndef __BYTE_ORDER
+#error __FILE__ ": __BYTE_ORDER is not defined!"
+#endif
+#if __BYTE_ORDER == __BIG_ENDIAN
+#include <stdlib.h> /* malloc among others */
 
 #include "isort/ufunc/u2_isort.c"
-
 #define _0(v) ((v)         & 0xFF)
 #define _1(v) (((v) >> 8)  & 0xFF)
 #define HIST_SIZE 256
 
 /* implements in place u4 radix sort. */
 
-U2_SORT_LKG void u2_sort(unsigned short* a, const long sz) {
+U2_SORT_LKG void u2_sort(unsigned short *a, const long sz) {
     long j;
     unsigned pos;
     long n, sum0=0 , sum1=0 , tsum=0;
@@ -61,8 +62,13 @@ U2_SORT_LKG void u2_sort(unsigned short* a, const long sz) {
     free(b0);
 }
 
-#undef REFRESH
 #undef _0
 #undef _1
-#undef _2
 #undef HIST_SIZE
+
+/* endian */
+#else
+#define QS_(name) u2_## name 
+#define QSORT_TY unsigned short
+#include "../qsort/qsort.c"
+#endif

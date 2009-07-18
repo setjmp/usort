@@ -1,5 +1,5 @@
 test :
-	gcc -E -c -I../ -I../../ -I../qsort/ test.c
+	gcc -E -c -I../ -I../../ -I../qsort/ 
 
 clean :
 	rm -f test

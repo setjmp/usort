@@ -10,6 +10,7 @@
 #include <string.h>
 #include <sys/time.h>
 #include "datetime/TIME.c"
+#include <assert.h>
 #include <unistd.h>
 #ifndef ISFINITE
 #define ISFINITE(x) 1

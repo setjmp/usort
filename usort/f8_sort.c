@@ -6,18 +6,17 @@
  * (was possibly buggy wrt to prefetching)
  */
 
-/* f8 must not use strict aliasing */
-
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <assert.h>
 #include "f8_sort.h"
-#include "../qsort/ufunc/f8_qsort.c"
+#include <string.h>
+#ifndef __BYTE_ORDER
+#error __FILE__ ": __BYTE_ORDER is not defined!"
+#endif
 
-
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#  include <stdlib.h>
+#  define QSORT_TY double
+#  define QS_(name) f8_q##name
+#  include "../qsort/qsort.c"
 
 #define _0(v) ( (v)         & 0x7FF)
 #define _1(v) (((v)  >> 11) & 0x7FF)
@@ -26,7 +25,6 @@
 #define _4(v) (((v)  >> 44) & 0x7FF)
 #define _5(v) (((v)  >> 55) & 0x7FF)
 #define F8_SORT_HIST_SIZE 2048
-
 
 static inline unsigned long long f8_sort_FloatFlip(unsigned long long u) {
     unsigned long long mask       =  -(u >> 63) | 0x8000000000000000ull ;
@@ -45,7 +43,6 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     unsigned long long *reader, *writer, *buf1 = (unsigned long long*) a, *buf2;
     unsigned long *b0, *b1, *b2, *b3, *b4, *b5;
 
-    //fprintf(stderr,"starting\n");
     if (sz < 2048) { f8_qsort(a,sz); return; } 
     buf2  = (unsigned long long*) malloc(sz * sizeof(double));
     b0   = calloc(F8_SORT_HIST_SIZE * 6 , sizeof(unsigned long));
@@ -85,14 +82,7 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
         tsum  = b5[j] + sum5;
         b5[j] = sum5 - 1;
         sum5 = tsum;
-        
-        //assert( b0[j] < sz || b0[j] == ~(0ul) );
-        //assert( b1[j] < sz || b1[j] == ~(0ul) );
-        //assert( b2[j] < sz || b2[j] == ~(0ul) );
-        //assert( b3[j] < sz || b3[j] == ~(0ul) );
-        //assert( b4[j] < sz || b4[j] == ~(0ul) );
-        //assert( b5[j] < sz || b5[j] == ~(0ul) );
-        
+      
     }   
     
     
@@ -101,7 +91,6 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     for (n=0; n < sz; n++) {
         pos = _0(reader[n]);
         writer[++b0[pos]] = reader[n];
-        //assert( b0[pos] < sz);
         
     }
     
@@ -111,7 +100,6 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     for (n=0; n < sz; n++) {
         pos = _1(reader[n]); 
         writer[++b1[pos]] = reader[n] ;
-        //assert( b1[pos] < sz);
     }
     
     writer = buf2;    /* byte 2 */
@@ -119,7 +107,7 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     for (n=0; n < sz; n++) {
         pos = _2(reader[n]); 
         writer[++b2[pos]] = reader[n];
-        //assert( b2[pos] < sz); 
+        
     }
     
     writer = buf1;    /* byte 3 */
@@ -127,19 +115,16 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     for (n=0; n < sz; n++) {
         pos = _3(reader[n]); 
         writer[++b3[pos]] = reader[n];
-        //assert( b3[pos] < sz); 
+        
     }
    
     
     writer = buf2;    /* byte 4 */
     reader = buf1;
     
-    //fprintf(stderr,"here is val %llu\n",b4[1988]);
     for (n=0; n < sz; n++) {
         pos = _4(reader[n]); 
-        
         writer[++b4[pos]] = reader[n];
-        //assert( b4[pos] < sz );
     }
         
     writer = buf1;  /* byte 5 */
@@ -153,12 +138,15 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     free(b0);
 }
 
-
-
-#undef F8_SORT_HIST_SIZE
-#undef _0
-#undef _1
-#undef _2
-#undef _3
-#undef _4
-#undef _5
+# undef F8_SORT_HIST_SIZE
+# undef _0
+# undef _1
+# undef _2
+# undef _3
+# undef _4
+# undef _5
+#else /* endian */
+# define QS_(name) f8_## name 
+# define QSORT_TY double
+# include "../qsort/qsort.c"
+#endif

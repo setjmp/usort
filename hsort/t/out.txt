@@ -1,0 +1,170 @@
+TESTING APP:  u1
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012773	0.0000018309	43.33
+       100	0.0000067036	0.0000147521	120.06
+      1000	0.0000797958	0.0001894628	137.43
+     10000	0.0010043215	0.0023249991	131.50
+    100000	0.0117446534	0.0270880627	130.64
+   1000000	0.1230358861	0.2943287618	139.22
+  10000000	1.6504987876	3.6786096626	122.88
+TESTING APP:  s1
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000013076	0.0000021050	60.98
+       100	0.0000062508	0.0000140905	125.42
+      1000	0.0000781498	0.0001829647	134.12
+     10000	0.0009673482	0.0022283568	130.36
+    100000	0.0114612403	0.0259469431	126.39
+   1000000	0.1273744925	0.3023276160	137.35
+  10000000	1.6687860224	3.4156186051	104.68
+TESTING APP:  u2
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012408	0.0000018619	50.06
+       100	0.0000066180	0.0000149301	125.60
+      1000	0.0000853621	0.0001974716	131.33
+     10000	0.0010917278	0.0024935077	128.40
+    100000	0.0141511625	0.0303967961	114.80
+   1000000	0.1935870696	0.3522137295	81.94
+  10000000	4.3064635330	4.8078621493	11.64
+TESTING APP:  s2
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012395	0.0000020887	68.51
+       100	0.0000066892	0.0000158233	136.55
+      1000	0.0000850650	0.0001957749	130.15
+     10000	0.0010682772	0.0024386194	128.28
+    100000	0.0137951806	0.0293169069	112.52
+   1000000	0.1958881171	0.3437835231	75.50
+  10000000	3.9147195021	3.8934631877	-0.54
+TESTING APP:  u4
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000011995	0.0000016273	35.66
+       100	0.0000063355	0.0000117709	85.79
+      1000	0.0000817589	0.0001228558	50.27
+     10000	0.0010749120	0.0016090965	49.70
+    100000	0.0139417381	0.0191024190	37.02
+   1000000	0.2181163412	0.2253269306	3.31
+  10000000	4.4964674844	2.7083316379	-39.77
+TESTING APP:  s4
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012434	0.0000016103	29.51
+       100	0.0000065476	0.0000104512	59.62
+      1000	0.0000910268	0.0001249498	37.27
+     10000	0.0010732605	0.0018226005	69.82
+    100000	0.0142678124	0.0192475756	34.90
+   1000000	0.2486269354	0.2334224672	-6.12
+  10000000	4.4835963249	2.7654682265	-38.32
+TESTING APP:  f4
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012819	0.0000016136	25.88
+       100	0.0000074165	0.0000108458	46.24
+      1000	0.0000961278	0.0001321877	37.51
+     10000	0.0012551349	0.0016876832	34.46
+    100000	0.0164381453	0.0205276881	24.88
+   1000000	0.2441840196	0.2522443834	3.30
+  10000000	4.9129833115	2.8595121172	-41.80
+TESTING APP:  f8
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012922	0.0000016872	30.56
+       100	0.0000075130	0.0000107995	43.75
+      1000	0.0000864568	0.0001243244	43.80
+     10000	0.0011580721	0.0015645721	35.10
+    100000	0.0150344696	0.0190087167	26.43
+   1000000	0.2950521286	0.2326453238	-21.15
+  10000000	5.4090488752	2.8106843101	-48.04
+TESTING APP:  s8
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012271	0.0000015657	27.59
+       100	0.0000063403	0.0000101296	59.76
+      1000	0.0000802935	0.0001203593	49.90
+     10000	0.0010906606	0.0015276542	40.07
+    100000	0.0144195418	0.0184774595	28.14
+   1000000	0.2925139268	0.2262675859	-22.65
+  10000000	5.4003553391	2.7252526283	-49.54
+TESTING APP:  u8
+Sort Comparison of unsigned integers on N numbers generating according to:
+RANDOM:    random integers
+BOUNDED:   random() % (N/4)
+SORTED:    sorted integers 1...N
+REVERSED:  sorted integers N...1
+IDENT:     all values of the array are "1"
+
+RANDOM
+N               mysort (secs)   GLIBC (secs)    %impr
+        10	0.0000012235	0.0000015935	30.24
+       100	0.0000063774	0.0000101858	59.72
+      1000	0.0000799028	0.0001192238	49.21
+     10000	0.0010815030	0.0014891114	37.69
+    100000	0.0142646366	0.0185700706	30.18
+   1000000	0.2876648614	0.2261536121	-21.38
+  10000000	5.4592096011	2.7180097103	-50.21

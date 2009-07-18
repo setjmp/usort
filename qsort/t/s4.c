@@ -1,5 +1,5 @@
-#define TY long
-#define TY_FMT "%ld"
-#include "../ufunc/s4_qsort.c"
-#define QS s4_qsort
+#define TY int
+#define TY_FMT "%d"
+#include "../ufunc/s4_sort.c"
+#define QS s4_sort
 #include "qsort-cmp.c"

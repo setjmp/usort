@@ -6,14 +6,19 @@
  * (was possibly buggy wrt to prefetching)
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <assert.h>
 #include "u8_sort.h"
+#include <string.h>
 
-#include "../qsort/ufunc/u8_qsort.c"
+#ifndef __BYTE_ORDER 
+#error __FILE__ ": __BYTE_ORDER is not defined!"
+#endif
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+
+#include <stdlib.h>
+
+#define QSORT_TY unsigned long long 
+#define QS_(name) u8_q##name
+#include "../qsort/qsort.c"
 
 #define _0(v) ((v)         & 0x7FF)
 #define _1(v) (((v) >> 11) & 0x7FF)
@@ -113,8 +118,13 @@ U8_SORT_LKG void u8_sort(unsigned long long *a, const long sz) {
 }
 
 
-#undef REFRESH
 #undef _0
 #undef _1
 #undef _2
 #undef HIST_SIZE
+
+#else  /* endian */
+#define QS_(name) u8_## name 
+#define QSORT_TY unsigned long long
+#include "../qsort/qsort.c"
+#endif
