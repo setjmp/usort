@@ -70,5 +70,5 @@ U2_SORT_LKG void u2_sort(unsigned short *a, const long sz) {
 #else
 #define QS_(name) u2_## name 
 #define QSORT_TY unsigned short
-#include "../qsort/qsort.c"
+#include "../qsort/csort.c"
 #endif

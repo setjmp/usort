@@ -2,4 +2,4 @@
 #define TY_FMT "%llu"
 #include "../ufunc/u8_sort.c"
 #define QS u8_sort
-#include "qsort-cmp.c"
+#include "csort-cmp.c"

@@ -18,7 +18,7 @@
 #  include <stdlib.h>
 #  define QSORT_TY float
 #  define QS_(name) f4_q##name
-#  include "../qsort/qsort.c"
+#  include "../qsort/csort.c"
 
 #  define _0(v) ( (v)         & 0x7FF)
 #  define _1(v) (((v)  >> 11) & 0x7FF)
@@ -101,5 +101,5 @@ F4_SORT_LKG void f4_sort(float *a, const long sz) {
 #else /* endian */
 #  define QS_(name) f4_## name 
 #  define QSORT_TY float
-#  include "../qsort/qsort.c"
+#  include "../qsort/csort.c"
 #endif

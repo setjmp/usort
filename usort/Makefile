@@ -1,6 +1,5 @@
-test :
-	gcc -E -c -I../ -I../../ -I../qsort/ 
-
+all : 
+	cd t ; make all
 clean :
 	rm -f test
 	cd t ; make clean

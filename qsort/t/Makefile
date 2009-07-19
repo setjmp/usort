@@ -5,36 +5,36 @@ SRC=$(patsubst %,%.c,$(wildcard $(APPS)))
 
 all : $(APPS)
 
-u1  : qsort-cmp.c ../swap.c ../qsort.c $(SRC)  
+u1  : csort-cmp.c ../swap.c ../csort.c $(SRC)  
 	gcc $(G) $(W) $(I) $(O) -o u1 u1.c 
 
-s1  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+s1  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o s1 s1.c 
 
-u2  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+u2  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o u2 u2.c 
 
-s2  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+s2  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o s2 s2.c 
 
-f4  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+f4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o f4 f4.c 
 
-s4  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+s4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o s4 s4.c 
 
-u4  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+u4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o u4 u4.c 
 
-f8  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+f8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o f8 f8.c 
 
-u8  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+u8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o u8 u8.c 
 
-s8  : qsort-cmp.c ../swap.c ../qsort.c  $(SRC)
+s8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
 	gcc $(G) $(W) $(I) $(O) -o s8 s8.c 
 
 
 clean :
-	rm -f $(APPS) qsort-cmp 
+	rm -f $(APPS) csort-cmp 

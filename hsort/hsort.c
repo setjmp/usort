@@ -30,11 +30,6 @@
 #  define HS_(name) HS_##name
 #endif
 
-/* #include "swap.c"  */
-/* smaller than this value => insertion sort */
-#define HSORT_ISORT_SWITCH 32
-#define HSORT_NINTHER_SWITCH 64
-
 /* Comparisons... default to arithmatic */
 #ifndef HSORT_EQ
 #  define HSORT_EQ(a,b) (*(a) == *(b))

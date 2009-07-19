@@ -3,6 +3,6 @@
 #define TY_FMT "%d"
 #include "../ufunc/u1_sort.c"
 #define QS u1_sort
-#include "qsort-cmp.c"
+#include "csort-cmp.c"
 
 

@@ -2,7 +2,7 @@
 #define U4_QSORT
 #define QSORT_TY uint32_t
 #define QS_(name) u4_##name
-#include "../qsort.c"
+#include "../csort.c"
 #endif
 
 

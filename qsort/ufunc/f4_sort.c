@@ -7,5 +7,5 @@ with QSORT_SKIP_EQUALITY */
 #define QSORT_TY float
 #define QS_(name) f4_## name
 
-#include "../qsort.c"
+#include "../csort.c"
 #endif

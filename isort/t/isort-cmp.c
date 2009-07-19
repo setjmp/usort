@@ -1,4 +1,4 @@
-/* Test harness for qsort.c, useful for all C base types up to 64 bits.  
+/* Test harness for csort.c, useful for all C base types up to 64 bits.  
    Uses macros for polymorphism.
    To use, define macro TY (e.g. #define TY float) then #include this file. */
 
@@ -22,7 +22,7 @@
 enum generator {RAND,BOUNDED,SORTED, REVERSE ,IDENT} ;
 
 long long k,j;
-const char* usage="qsort-cmp dist N trials\n"
+const char* usage="csort-cmp dist N trials\n"
 "dist is one of: RAND, BOUNDED , SORTED, REVSORTED, IDENT\n"
 "N:              size of the array.\n"
 "trials:         how many trials to do.  Necessary for small N.\n";

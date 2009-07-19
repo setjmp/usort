@@ -71,5 +71,5 @@ S2_SORT_LKG void s2_sort(signed short *a, const long sz) {
 #else /* endian */
 #define QS_(name) s2_## name 
 #define QSORT_TY short
-#include "../qsort/qsort.c"
+#include "../qsort/csort.c"
 #endif

@@ -4,4 +4,4 @@
 #define TY_FMT "%lf"
 #include "../ufunc/f8_sort.c"
 #define QS f8_sort
-#include "qsort-cmp.c"
+#include "csort-cmp.c"

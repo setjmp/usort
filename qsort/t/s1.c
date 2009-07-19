@@ -3,4 +3,4 @@
 #define TY_FMT "%c"
 #include "../ufunc/s1_sort.c"
 #define QS s1_sort
-#include "qsort-cmp.c"
+#include "csort-cmp.c"

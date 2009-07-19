@@ -24,6 +24,8 @@
 #define ISORT_SWAP(y) { swap = *(y); *(y) = *((y)-1) ; *((y)-1) = swap; } 
 #endif
 
+#include <stdlib.h>
+
 static inline void IS_(isort)(ISORT_TY* a, const long long n) {    
     ISORT_TY *x=a+1,*y=NULL,swap;
     for (;x < a + n; x++) {

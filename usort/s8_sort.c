@@ -18,7 +18,7 @@
 
 #define QS_(name) s8_q##name
 #define QSORT_TY long long
-#include "../qsort/qsort.c"
+#include "../qsort/csort.c"
 
 #define _0(v) ((v)         & 0x7FF)
 #define _1(v) (((v) >> 11) & 0x7FF)
@@ -126,5 +126,5 @@ S8_SORT_LKG void s8_sort( long long *a, const long sz) {
 #else /* big endian */
 #define QS_(name) s8_## name 
 #define QSORT_TY long long
-#include "../qsort/qsort.c"
+#include "../qsort/csort.c"
 #endif 
