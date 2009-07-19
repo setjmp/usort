@@ -1,10 +1,13 @@
-all :
-	cd usort ; make all
-	cd qsort ; make all
-	cd hsort ; make all
+.PHONY : timing-binaries clean
+
+timing-binaries :
+	cd usort ; make 
+	cd qsort ; make 
+	cd hsort ; make 
+	cd isort ; make 
 
 clean :
 	cd usort ; make clean
 	cd qsort ; make clean
 	cd hsort ; make clean
-
+	cd isort ; make clean
