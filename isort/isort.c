@@ -2,18 +2,15 @@
    A fast general-purpose insertion sort implemention.
 */
 
+#include "../common/defs.c" /* comparisons
+
+
 #if !defined LIBBING_AS_ISORT
 #  define ISORT_LKG static inline
 #else
 #  define ISORT_LKG 
 #endif
-#ifndef ISORT_LT 
-#error "isort.c: ISORT_LT is not defined."
-#endif
 
-#ifndef ISORT_TY
-#  error "isort.c imported without QSORT_TY definition."
-#endif
 
 #ifndef IS_
 #  define IS_(name) IS_##name
