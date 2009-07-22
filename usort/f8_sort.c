@@ -14,8 +14,8 @@
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #  include <stdlib.h>
-#  define QSORT_TY double
-#  define QS_(name) f8_q##name
+#  define CSORT_TY double
+#  define CS_(name) f8_q##name
 #  include "../qsort/csort.c"
 
 #define _0(v) ( (v)         & 0x7FF)
@@ -146,7 +146,7 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
 # undef _4
 # undef _5
 #else /* endian */
-# define QS_(name) f8_## name 
-# define QSORT_TY double
+# define CS_(name) f8_## name 
+# define CSORT_TY double
 # include "../qsort/csort.c"
 #endif

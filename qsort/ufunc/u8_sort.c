@@ -1,6 +1,6 @@
-#ifndef U8_QSORT
-#define U8_QSORT
-#define QSORT_TY unsigned long long
-#define QS_(name) u8_## name
+#ifndef U8_CSORT
+#define U8_CSORT
+#define CSORT_TY unsigned long long
+#define CS_(name) u8_## name
 #include "../csort.c"
 #endif

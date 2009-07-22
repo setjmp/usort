@@ -15,7 +15,10 @@
 #if __BYTE_ORDER == __BIG_ENDIAN
 #include <stdlib.h>
 
-#include "isort/ufunc/s2_isort.c"
+#define CSORT_TY short
+#define CS_(name) s2_##name
+#include "../common/defs.c"
+
 
 #define _0(v) (unsigned) ((v)         & 0xFF)
 #define _1(v) (unsigned) (( ((v) >> 8)  & 0xFF) ^ 0x80)
@@ -30,7 +33,7 @@ S2_SORT_LKG void s2_sort(signed short *a, const long sz) {
     long n, sum0=0 , sum1=0 , tsum=0;
     signed short *reader, *writer, *buf;
     long *b0, *b1;
-    if (sz < 32) { return s2_isort(a,sz);}
+    if (sz < 16) { return CS_(ins_sort)(a,sz);}
     buf  = (signed short*) malloc(sz * sizeof(signed short));
     b0   = calloc(HIST_SIZE * 2, sizeof(long));
     b1   = b0 + HIST_SIZE;
@@ -67,9 +70,11 @@ S2_SORT_LKG void s2_sort(signed short *a, const long sz) {
 #undef _0
 #undef _1
 #undef HIST_SIZE
+#undef CSORT_TY
+#undef CS_
 
 #else /* endian */
-#define QS_(name) s2_## name 
-#define QSORT_TY short
+#define CS_(name) s2_## name 
+#define CSORT_TY short
 #include "../qsort/csort.c"
 #endif

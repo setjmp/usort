@@ -41,7 +41,6 @@
 #  define HSORT_LE(a,b) (*(a) <= *(b))
 #endif
 
-#define HSORT_MIN(a,b) ((a) < (b) ? (a) : (b))
 
 static inline void HS_(SWAP)(HSORT_TY *a, HSORT_TY *b) {
     /* made a function since arguments tend to be incremented by caller */

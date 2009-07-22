@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 
-#define QSORT_TY unsigned long long 
-#define QS_(name) u8_q##name
+#define CSORT_TY unsigned long long 
+#define CS_(name) u8_q##name
 #include "../qsort/csort.c"
 
 #define _0(v) ((v)         & 0x7FF)
@@ -124,7 +124,7 @@ U8_SORT_LKG void u8_sort(unsigned long long *a, const long sz) {
 #undef HIST_SIZE
 
 #else  /* endian */
-#define QS_(name) u8_## name 
-#define QSORT_TY unsigned long long
+#define CS_(name) u8_## name 
+#define CSORT_TY unsigned long long
 #include "../qsort/csort.c"
 #endif

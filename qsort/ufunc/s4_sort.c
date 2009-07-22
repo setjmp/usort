@@ -1,6 +1,6 @@
-#ifndef S4_QSORT
-#define S4_QSORT
-#define QSORT_TY int
-#define QS_(name) s4_## name
+#ifndef S4_CSORT
+#define S4_CSORT
+#define CSORT_TY int
+#define CS_(name) s4_## name
 #include "../csort.c"
 #endif

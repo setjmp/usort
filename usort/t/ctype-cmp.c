@@ -177,7 +177,7 @@ int main (int argc, char **argv)
         //fprintf(stderr,"GNU: %llx %llx\n",u1.ull,u2.ull);
         
         start = TIME();
-        QS(array_m,n);
+        CS(array_m,n);
         end   = TIME();
         if (i) {
             m_tot += end - start;

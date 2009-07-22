@@ -4,7 +4,7 @@
 #define TY signed short
 #define TY_FMT "%o"
 #include "../s2_sort.c"
-#define QS s2_sort
+#define CS s2_sort
 #include "ctype-cmp.c"
 
 

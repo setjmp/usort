@@ -16,8 +16,8 @@
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #include <stdlib.h>
 
-#define QS_(name) s8_q##name
-#define QSORT_TY long long
+#define CS_(name) s8_q##name
+#define CSORT_TY long long
 #include "../qsort/csort.c"
 
 #define _0(v) ((v)         & 0x7FF)
@@ -124,7 +124,7 @@ S8_SORT_LKG void s8_sort( long long *a, const long sz) {
 #undef HIST_SIZE
 
 #else /* big endian */
-#define QS_(name) s8_## name 
-#define QSORT_TY long long
+#define CS_(name) s8_## name 
+#define CSORT_TY long long
 #include "../qsort/csort.c"
 #endif 

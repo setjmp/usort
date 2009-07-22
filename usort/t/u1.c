@@ -3,7 +3,7 @@
 #define TY unsigned char
 #define TY_FMT "%d"
 #include "../u1_sort.c"
-#define QS u1_sort
+#define CS u1_sort
 #include "ctype-cmp.c"
 
 

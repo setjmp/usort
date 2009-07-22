@@ -3,5 +3,5 @@
 #define TY float
 #define TY_FMT "%f"
 #include "../ufunc/f4_sort.c"
-#define QS f4_sort
+#define CS f4_sort
 #include "csort-cmp.c"

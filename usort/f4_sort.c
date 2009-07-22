@@ -16,8 +16,8 @@
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #  include <stdlib.h>
-#  define QSORT_TY float
-#  define QS_(name) f4_q##name
+#  define CSORT_TY float
+#  define CS_(name) f4_q##name
 #  include "../qsort/csort.c"
 
 #  define _0(v) ( (v)         & 0x7FF)
@@ -47,7 +47,7 @@ F4_SORT_LKG void f4_sort(float *a, const long sz) {
     b1 = b0 + F4_SORT_HIST_SIZE;
     b2 = b1 + F4_SORT_HIST_SIZE;
     memset(b0,0,F4_SORT_HIST_SIZE*3*sizeof(unsigned long));
-        
+    
     for (n=0; n < sz; n++) {
         
         buf1[n] = f4_sort_FloatFlip(a[n]);
@@ -99,7 +99,7 @@ F4_SORT_LKG void f4_sort(float *a, const long sz) {
 #  undef _1
 #  undef _2
 #else /* endian */
-#  define QS_(name) f4_## name 
-#  define QSORT_TY float
+#  define CS_(name) f4_## name 
+#  define CSORT_TY float
 #  include "../qsort/csort.c"
 #endif

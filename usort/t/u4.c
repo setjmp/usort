@@ -3,5 +3,5 @@
 #define TY uint32_t
 #define TY_FMT "%u"
 #include "../u4_sort.c"
-#define QS u4_sort
+#define CS u4_sort
 #include "ctype-cmp.c"

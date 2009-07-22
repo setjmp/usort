@@ -1,6 +1,6 @@
-#ifndef U2_QSORT
-#define U2_QSORT
-#define QSORT_TY unsigned short
-#define QS_(name) u2_## name
+#ifndef U2_CSORT
+#define U2_CSORT
+#define CSORT_TY unsigned short
+#define CS_(name) u2_## name
 #include "csort.c"
 #endif

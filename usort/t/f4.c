@@ -4,6 +4,6 @@
 #define TY float
 #define TY_FMT "%f"
 #include "../f4_sort.c"
-#define QS f4_sort
+#define CS f4_sort
 #define ISFINITE(x) isfinite((x))
 #include "ctype-cmp.c"

@@ -7,7 +7,12 @@
 #include <assert.h>
 #include "u1_sort.h"
 #define U1_HIST_SIZE 256
-#include "isort/ufunc/u1_isort.c"
+
+#define CSORT_TY unsigned char
+#define CS_(name) u1_##name
+#include "../common/defs.c"
+
+
 
 /* implements in place u1 bucket sort. */
 
@@ -16,7 +21,7 @@ U1_SORT_LKG void u1_sort(unsigned char *a, const long sz) {
     long n;
     unsigned char *writer=a; 
     long b0[U1_HIST_SIZE];
-    if (sz < 32) { return u1_isort(a,sz);}
+    if (sz < 32) { return CS_(ins_sort)(a,sz);}
     memset(b0,0,U1_HIST_SIZE * sizeof(long));
     for (n=0; n < sz; n++) {
         b0[a[n]]++; 
@@ -32,3 +37,5 @@ U1_SORT_LKG void u1_sort(unsigned char *a, const long sz) {
 
 #undef REFRESH
 #undef U1_HIST_SIZE
+#undef CSORT_TY 
+#undef CS_

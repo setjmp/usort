@@ -4,8 +4,8 @@ This directory contains a set of C language sorting functions.
 There are two primary subdirectories to look  at:
 
 1. usort - contains optimized sorting routines for each of the basic c numeric types.  The "u" is 
-for universal... where the universe refers to the set of basic c numeric types.
-2. qsort - a general purpose quicksort routine.
+for universal... where the universe refers to the set of basic c numeric types. 
+2. qsort - a general purpose comparison based routine.
 
 To use the code, simply #include the appropriate function.
 

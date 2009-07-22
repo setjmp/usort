@@ -3,5 +3,5 @@
 #define TY long long 
 #define TY_FMT "%lld"
 #include "../s8_sort.c"
-#define QS s8_sort
+#define CS s8_sort
 #include "ctype-cmp.c"

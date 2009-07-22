@@ -15,7 +15,10 @@
 #if __BYTE_ORDER == __BIG_ENDIAN
 #include <stdlib.h> /* malloc among others */
 
-#include "isort/ufunc/u2_isort.c"
+#define CSORT_TY unsigned short
+#define CS_(name) u2_##name
+#include "../common/defs.c"
+
 #define _0(v) ((v)         & 0xFF)
 #define _1(v) (((v) >> 8)  & 0xFF)
 #define HIST_SIZE 256
@@ -65,10 +68,12 @@ U2_SORT_LKG void u2_sort(unsigned short *a, const long sz) {
 #undef _0
 #undef _1
 #undef HIST_SIZE
+#undef CS_
+#undef CSORT_TY
 
 /* endian */
 #else
-#define QS_(name) u2_## name 
-#define QSORT_TY unsigned short
+#define CS_(name) u2_## name 
+#define CSORT_TY unsigned short
 #include "../qsort/csort.c"
 #endif
