@@ -1,27 +1,39 @@
 c 2008,2009 Andrew I. Schein
+See LICENSE file.
 
-This directory contains a set of C language sorting functions.  
-There are two primary subdirectories to look  at:
+This directory contains a set of C99 language sorting functions. 
+There are two sets of uses:
 
-1. usort - contains optimized sorting routines for each of the basic c numeric types.  The "u" is 
-for universal... where the universe refers to the set of basic c numeric types. 
-2. csort - a general purpose comparison based routine.
+1. General purpose comparison-based sorting that is faster than glibc qsort.  
+The file csort.c contains an introsort implementation (introsort is a variation of 
+quicksort), with comparison operators defined as macros for maximal inlining.
 
-To use the code, simply #include the appropriate function.
+2. Numeric type-specific sort routines.
+The directory usort/usort/* contains a set of type-specific files.  For example
+f4_sort.c contains a 4 byte float sort. The usort files use a combination of 
+strategies including bucket sort, radix sort, insertion sort, and intro sort.  
+In the case of radix sort a compile time check for  little endian is performed, 
+and an introsort is used for big endian hardware.
 
-The motivation for building this library is speed with special emphasis on the C numeric types.  
-The usort libraries use a combination of  strategies including bucket sort, radix sort, quicksort, 
-and insertion sort.
+To use the code, you may either:
 
-The quicksort library uses static definition of the comparison operator (by means of macros) 
-in order to prevent dispatch overhead. It is intended for general use in addition to its inclusion
-within the usort stragegies.
+1. #include the appropriate function file.  This approach will give maximum inlining, but
+you may have to study the usort macros to ensure there is no collision in your other code.
+2. Compile a static or shared library with the files that interest you.  
+
+At a minimum for use of the comparison sort, you are expected to include it in a file that has
+
+#define CSORT_TY
+and
+#define CS_
+set up. For simple examples employing the csort.c, see the csort/ufunc/ directory.
 
 For the usorts, the speedups range from 3x for 8 byte numbers to incredable 250x for 1 byte 
 integers (which can be sorted using bucket sort).
 
-I test this code on both 32 and 64 bit intel architectures. Below are
-complete comparisons of the usorts against the GNU lib C qsort straw
+I test this code on both 32 and 64 bit intel architectures. More recently, my tests
+have been focussed on 64 bit due to available hardware.
+Below are complete comparisons of the usorts against the GNU lib C qsort straw
 man.  Timings were on my TravelMate 8210, a 32 bit intel machine with
 Intel(R) Core2 T7200 @ 2.00GHz and 2 gigs of RAM..
 
