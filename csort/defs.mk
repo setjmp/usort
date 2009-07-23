@@ -1,4 +1,4 @@
-I=-L/usr/lib/gcc/i486-linux-gnu/4.2/ -I../  -I/usr/include 
+I=-L/usr/lib/gcc/i486-linux-gnu/4.2/ -I../  -I/usr/include  -I../../ -I../../../
 W=-Wall
 #O=-fmudflap -lmudflap
 LIB=-lm

@@ -1,13 +1,12 @@
 .PHONY : timing-binaries clean
 
 timing-binaries :
-	cd usort ; make 
-	cd qsort ; make 
+	cd ./usort ; make 
+	cd csort ; make 
 	cd hsort ; make 
-	cd isort ; make 
 
 clean :
-	cd usort ; make clean
-	cd qsort ; make clean
+	cd ./usort ; make clean
+	cd csort ; make clean
 	cd hsort ; make clean
 	cd isort ; make clean

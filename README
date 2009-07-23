@@ -12,8 +12,11 @@ quicksort), with comparison operators defined as macros for maximal inlining.
 The directory usort/usort/* contains a set of type-specific files.  For example
 f4_sort.c contains a 4 byte float sort. The usort files use a combination of 
 strategies including bucket sort, radix sort, insertion sort, and intro sort.  
-In the case of radix sort a compile time check for  little endian is performed, 
-and an introsort is used for big endian hardware.
+
+NOTE: In the case of radix sort a compile time check for  little endian is performed, 
+and an introsort is used for big endian hardware.  In hindsight... this may not be necessary
+however I don't have a big endian machine to test it on.
+
 
 To use the code, you may either:
 
