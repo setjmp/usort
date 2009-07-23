@@ -32,7 +32,7 @@ U4_SORT_LKG void u4_sort(unsigned *a, const long sz) {
     long n, sum0=0 , sum1=0 , sum2=0 , tsum=0;
     unsigned *reader, *writer, *buf = (unsigned*) malloc(sz * sizeof(unsigned));
     size_t *b0, *b1, *b2;
-    if (sz < 256) { u4_qsort(a,sz); return; }
+    if (sz < 256) { u4_csort(a,sz); return; }
     b0   = malloc(HIST_SIZE * 3 * sizeof(size_t));
     b1   = b0 + HIST_SIZE;
     b2   = b1 + HIST_SIZE;

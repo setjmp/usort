@@ -4,5 +4,3 @@
 #define CS_(name) u4_##name
 #include "../csort.c"
 #endif
-
-

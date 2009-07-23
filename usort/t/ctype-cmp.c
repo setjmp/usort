@@ -9,7 +9,7 @@
 #include <time.h>
 #include <string.h>
 #include <sys/time.h>
-#include "datetime/TIME.c"
+#include "common/TIME.c"
 #include <assert.h>
 #include <unistd.h>
 #ifndef ISFINITE
