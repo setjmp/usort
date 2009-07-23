@@ -173,7 +173,7 @@ int main (int argc, char **argv)
         
     
     fprintf(stdout,"%10ld\t%5.10f\t%5.10f\t%2.2f\n",n,m_tot,g_tot,
-            100*((g_tot/m_tot) - 1));
+            (g_tot/m_tot));
     free (array1);
     return 0; 
 }

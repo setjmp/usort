@@ -3,6 +3,7 @@ W=-Wall
 #O=-fmudflap -lmudflap
 O=-O5
 G=-g
+L=-lm
 LD_LIBRARY_PATH=/usr/lib:/lib:
 CC=/usr/bin/colorgcc -std=c99 -fgnu89-inline
 OBJS=$(patsubst %.c,%.o,$(wildcard *.c))

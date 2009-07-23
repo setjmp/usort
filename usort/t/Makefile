@@ -7,34 +7,34 @@ all : $(APPS)
 	echo $(SRC)
 
 u1  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O)  -o u1 u1.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L)  -o u1 u1.c 
 
 s1  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O)  -o s1 s1.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L)  -o s1 s1.c 
 
 s2  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O)  -o s2 s2.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L)  -o s2 s2.c 
 
 u4  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O) -o u4 u4.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o u4 u4.c 
 
 s4  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O)  -o s4 s4.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L)  -o s4 s4.c 
 
 u2  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O) -o u2 u2.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o u2 u2.c 
 
 u8  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O) -o u8 u8.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o u8 u8.c 
 
 s8  : ctype-cmp.c  $(SRC)  
-	$(CC) $(G) $(W) $(I) $(O) -o s8 s8.c 
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o s8 s8.c 
 
 f4  : ctype-cmp.c $(SRC)
-	$(CC) $(G) $(W) $(I) $(O) -o f4  f4.c
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o f4  f4.c
 
 f8  : ctype-cmp.c $(SRC)
-	$(CC) $(G) $(W) $(I) $(O) -o f8  f8.c
+	$(CC) $(G) $(W) $(I) $(O) $(L) -o f8  f8.c
 
 
 clean :

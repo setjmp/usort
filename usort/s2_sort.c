@@ -76,5 +76,5 @@ S2_SORT_LKG void s2_sort(signed short *a, const long sz) {
 #else /* endian */
 #define CS_(name) s2_## name 
 #define CSORT_TY short
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 #endif

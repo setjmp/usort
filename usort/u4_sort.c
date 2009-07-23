@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 #define CSORT_TY unsigned
-#define CS_(name) u4_q##name
-#include "../qsort/csort.c"
+#define CS_(name) u4_c##name
+#include "../csort/csort.c"
 
 #define _0(v) (unsigned) ((v)         & 0x7FF)
 #define _1(v) (unsigned) (((v) >> 11) & 0x7FF)
@@ -89,5 +89,5 @@ U4_SORT_LKG void u4_sort(unsigned *a, const long sz) {
 #else /* endian */
 #define CS_(name) u4_## name 
 #define CSORT_TY unsigned
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 #endif

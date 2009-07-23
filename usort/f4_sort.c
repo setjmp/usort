@@ -17,8 +17,8 @@
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #  include <stdlib.h>
 #  define CSORT_TY float
-#  define CS_(name) f4_q##name
-#  include "../qsort/csort.c"
+#  define CS_(name) f4_c##name
+#  include "../csort/csort.c"
 
 #  define _0(v) ( (v)         & 0x7FF)
 #  define _1(v) (((v)  >> 11) & 0x7FF)
@@ -41,7 +41,7 @@ F4_SORT_LKG void f4_sort(float *a, const long sz) {
     long n, sum0=0 , sum1=0 , sum2=0 , tsum=0;
     unsigned *reader, *writer, *buf1=(unsigned*)a, *buf2;
     unsigned long b0[F4_SORT_HIST_SIZE*3], *b1, *b2;
-    if (sz < 256) { f4_qsort(a,sz); return; } 
+    if (sz < 256) { f4_csort(a,sz); return; } 
     buf2 = (unsigned* ) malloc(sz * sizeof(unsigned));
     
     b1 = b0 + F4_SORT_HIST_SIZE;
@@ -101,5 +101,5 @@ F4_SORT_LKG void f4_sort(float *a, const long sz) {
 #else /* endian */
 #  define CS_(name) f4_## name 
 #  define CSORT_TY float
-#  include "../qsort/csort.c"
+#  include "../csort/csort.c"
 #endif

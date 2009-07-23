@@ -16,9 +16,9 @@
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #include <stdlib.h>
 
-#define CS_(name) s8_q##name
+#define CS_(name) s8_c##name
 #define CSORT_TY long long
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 
 #define _0(v) ((v)         & 0x7FF)
 #define _1(v) (((v) >> 11) & 0x7FF)
@@ -36,7 +36,7 @@ S8_SORT_LKG void s8_sort( long long *a, const long sz) {
     unsigned long pos;
     long n, sum0=0,sum1=0,sum2=0,sum3=0,sum4=0,sum5=0,tsum=0;
     long long *reader, *writer, *buf = ( long long*) malloc(sz * sizeof( long long));
-    if (sz < 2048) return s8_qsort(a,sz);
+    if (sz < 2048) return s8_csort(a,sz);
     if (sz < 0) { fprintf(stderr,"s8_sort: sz of array < 0: %ld\n",sz); exit(1); }
     long *b0, *b1, *b2, *b3, *b4, *b5;
     b0   = ( long*) malloc(HIST_SIZE * 6 * sizeof(long));
@@ -126,5 +126,5 @@ S8_SORT_LKG void s8_sort( long long *a, const long sz) {
 #else /* big endian */
 #define CS_(name) s8_## name 
 #define CSORT_TY long long
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 #endif 

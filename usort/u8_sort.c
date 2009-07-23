@@ -17,8 +17,8 @@
 #include <stdlib.h>
 
 #define CSORT_TY unsigned long long 
-#define CS_(name) u8_q##name
-#include "../qsort/csort.c"
+#define CS_(name) u8_c##name
+#include "../csort/csort.c"
 
 #define _0(v) ((v)         & 0x7FF)
 #define _1(v) (((v) >> 11) & 0x7FF)
@@ -36,7 +36,7 @@ U8_SORT_LKG void u8_sort(unsigned long long *a, const long sz) {
     unsigned long pos;
     unsigned long long n, sum0=0,sum1=0,sum2=0,sum3=0,sum4=0,sum5=0,tsum=0;
     unsigned long long *reader, *writer, *buf = (unsigned long long*) malloc(sz * sizeof(unsigned long long));
-    if (sz < 2048) return u8_qsort(a,sz);
+    if (sz < 2048) return u8_csort(a,sz);
     if (sz < 0) { fprintf(stderr,"u8_sort: sz of array < 0: %ld\n",sz); exit(1); }
     unsigned long long *b0, *b1, *b2, *b3, *b4, *b5;
     b0   = (unsigned long long*) malloc(HIST_SIZE * 6 * sizeof(unsigned long long));
@@ -126,5 +126,5 @@ U8_SORT_LKG void u8_sort(unsigned long long *a, const long sz) {
 #else  /* endian */
 #define CS_(name) u8_## name 
 #define CSORT_TY unsigned long long
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 #endif

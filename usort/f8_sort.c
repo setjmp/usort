@@ -15,8 +15,8 @@
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 #  include <stdlib.h>
 #  define CSORT_TY double
-#  define CS_(name) f8_q##name
-#  include "../qsort/csort.c"
+#  define CS_(name) f8_c##name
+#  include "../csort/csort.c"
 
 #define _0(v) ( (v)         & 0x7FF)
 #define _1(v) (((v)  >> 11) & 0x7FF)
@@ -43,7 +43,7 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
     unsigned long long *reader, *writer, *buf1 = (unsigned long long*) a, *buf2;
     unsigned long *b0, *b1, *b2, *b3, *b4, *b5;
 
-    if (sz < 2048) { f8_qsort(a,sz); return; } 
+    if (sz < 2048) { f8_csort(a,sz); return; } 
     buf2  = (unsigned long long*) malloc(sz * sizeof(double));
     b0   = calloc(F8_SORT_HIST_SIZE * 6 , sizeof(unsigned long));
     b1   = b0 + F8_SORT_HIST_SIZE;    b2   = b1 + F8_SORT_HIST_SIZE;
@@ -148,5 +148,5 @@ F8_SORT_LKG void f8_sort(double *a, const long sz) {
 #else /* endian */
 # define CS_(name) f8_## name 
 # define CSORT_TY double
-# include "../qsort/csort.c"
+# include "../csort/csort.c"
 #endif

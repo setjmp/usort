@@ -21,7 +21,7 @@ union { char l[8]; TY t; double d; unsigned long long llu; } u, u1, u2;
     
 
 long long k,j;
-const char* usage="qsort-cmp N dist trials\n"
+const char* usage="csort-cmp N dist trials\n"
 "dist is one of: RAND, BOUNDED , SORTED, REVSORTED, IDENT\n"
 "N:              size of the array.\n"
 "trials:         how many trials to do.  Necessary for small N.\n";

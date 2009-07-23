@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 #define CSORT_TY int
-#define CS_(name) s4_q##name
-#include "../qsort/csort.c"
+#define CS_(name) s4_c##name
+#include "../csort/csort.c"
 
 #define _0(v) ((unsigned)(v)         & 0x7FF)
 #define _1(v) (((unsigned)(v) >> 11) & 0x7FF)
@@ -32,7 +32,7 @@ S4_SORT_LKG void s4_sort(int *a, const long sz) {
     long n, sum0=0 , sum1=0 , sum2=0 , tsum=0;
     int *reader, *writer, *buf = (int*) malloc(sz * sizeof(int));
     size_t *b0, *b1, *b2;
-    if (sz < 256) { s4_qsort(a,sz); return; }
+    if (sz < 256) { s4_csort(a,sz); return; }
     b0   = malloc(HIST_SIZE * 3 * sizeof(size_t));
     b1   = b0 + HIST_SIZE;
     b2   = b1 + HIST_SIZE;
@@ -89,5 +89,5 @@ S4_SORT_LKG void s4_sort(int *a, const long sz) {
 /* endian */
 #define CS_(name) s4_## name 
 #define CSORT_TY int
-#include "../qsort/csort.c"
+#include "../csort/csort.c"
 #endif
