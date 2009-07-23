@@ -1,6 +1,7 @@
 I=-L/usr/lib/gcc/i486-linux-gnu/4.2/ -I../  -I/usr/include 
 W=-Wall
 #O=-fmudflap -lmudflap
+LIB=-lm
 O=-O9 -g
 CC=gcc#/usr/bin/colorgcc
 OBJS=$(patsubst %.c,%.o,$(wildcard *.c))

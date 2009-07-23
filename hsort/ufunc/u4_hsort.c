@@ -1,7 +1,7 @@
-#ifndef U4_HSORT
-#define U4_HSORT
-#define HSORT_TY unsigned int
-#define HS_(name) u4_h## name
+#ifndef U4_CSORT
+#define U4_CSORT
+#define CSORT_TY unsigned int
+#define CS_(name) u4_## name
 #include "../hsort.c"
 #endif
 

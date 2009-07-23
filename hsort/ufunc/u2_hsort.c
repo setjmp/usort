@@ -1,6 +1,6 @@
-#ifndef U2_HSORT
-#define U2_HSORT
-#define HSORT_TY unsigned short
-#define HS_(name) u2_h## name
+#ifndef U2_CSORT
+#define U2_CSORT
+#define CSORT_TY unsigned short
+#define CS_(name) u2_## name
 #include "hsort.c"
 #endif

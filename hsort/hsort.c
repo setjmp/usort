@@ -14,72 +14,58 @@
 
 #ifndef HSORT
 #define HSORT
-#if !defined LIBBING_AS_HSORT
-#  define HSORT_LKG static inline
-#else
-#  define HSORT_LKG 
-#endif
-
-#ifndef HSORT_TY
+#include "../common/defs.c"
+#ifndef CSORT_TY
 #  error "hsort.c imported without HSORT_TY definition."
 #endif
 
-
 /* can redefine with type_ */
-#ifndef HS_
-#  define HS_(name) HS_##name
+#ifndef CS_
+#  define CS_(name) CS_##name
 #endif
 
 /* Comparisons... default to arithmatic */
-#ifndef HSORT_EQ
-#  define HSORT_EQ(a,b) (*(a) == *(b))
+#ifndef CSORT_EQ
+#  define CSORT_EQ(a,b) (*(a) == *(b))
 #endif
-#ifndef HSORT_LT
-#  define HSORT_LT(a,b) (*(a) < *(b))
+#ifndef CSORT_LT
+#  define CSORT_LT(a,b) (*(a) < *(b))
 #endif
-#ifndef HSORT_LE
-#  define HSORT_LE(a,b) (*(a) <= *(b))
+#ifndef CSORT_LE
+#  define CSORT_LE(a,b) (*(a) <= *(b))
 #endif
 
-
-static inline void HS_(SWAP)(HSORT_TY *a, HSORT_TY *b) {
-    /* made a function since arguments tend to be incremented by caller */
-    HSORT_TY swap = *a;
-    *a            = *b;
-    *b            = swap;
-}
-
-static inline void HS_(siftdown)(HSORT_TY *a, const long start, const long end) {
+static inline void CS_(siftdown)(CSORT_TY *a, const long start, const long end) {
     long child, root = start;
     while (root * 2 + 1 <= end) {
         child = root * 2 + 1;
-        if ((child + 1) <= end && HSORT_LT(&a[child],&a[child+1])) ++child;           
-        if (HSORT_LT(&a[root],&a[child])) HS_(SWAP)(&a[root],&a[child]), root=child; 
+        if ((child + 1) <= end && CSORT_LT(&a[child],&a[child+1])) ++child;           
+        if (CSORT_LT(&a[root],&a[child])) CS_(csort_swap)(&a[root],&a[child]), root=child; 
         else return;      
     }
 }
 
-static inline void HS_(heapify)(HSORT_TY *a, const long count) {
+static inline void CS_(heapify)(CSORT_TY *a, const long count) {
     long start = (count-2) / 2; 
-    while ( start >= 0 ) HS_(siftdown)(a,start--,count-1);
+    while ( start >= 0 ) CS_(siftdown)(a,start--,count-1);
 }
 
-static inline void HS_(sort)(HSORT_TY *a, const long count) {
+static inline void CS_(heap_sort)(CSORT_TY *a, const long count) {
     long end;
-    HS_(heapify)(a, count);
+    CS_(heapify)(a, count);
     end = count - 1;
     while (end > 0) {
-        HS_(SWAP)(&a[end], &a[0]);
-        HS_(siftdown)(a, 0, end-1);
+        CS_(csort_swap)(&a[end], &a[0]);
+        CS_(siftdown)(a, 0, end-1);
         --end;   
     }
 }
 
-#undef HS_
-#undef HSORT_MIN
-#undef HSORT_LKG 
-#undef HSORT_LT
-#undef HSORT_LE
-#undef HSORT_EQ
-#undef HSORT_TY
+  #ifndef CS_KEEP
+    #undef CS_
+    #undef CSORT_LT
+    #undef CSORT_LE
+    #undef CSORT_EQ
+    #undef CSORT_TY
+  #endif
 #endif

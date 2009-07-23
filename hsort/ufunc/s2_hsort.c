@@ -1,6 +1,6 @@
-#ifndef S2_HSORT
-#define S2_HSORT
-#define HSORT_TY signed short
-#define HS_(name) s2_h## name
+#ifndef S2_CSORT
+#define S2_CSORT
+#define CSORT_TY signed short
+#define CS_(name) s2_## name
 #include "hsort.c"
 #endif

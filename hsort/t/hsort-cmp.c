@@ -2,8 +2,8 @@
    Uses macros for polymorphism.
    To use, define macro TY (e.g. #define TY float) then #include this file. */
 
-#ifndef HSORT_CMP
-#define HSORT_CMP
+#ifndef CSORT_CMP
+#define CSORT_CMP
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -160,7 +160,7 @@ int main (int argc, char **argv)
     for (i = 0; i < num_trials; i++) {
         fill(argv[2],array1,n);
         start = TIME();
-        HS(array1,n);
+        CS(array1,n);
         end   = TIME();
         if (i) {
             m_tot += end - start;

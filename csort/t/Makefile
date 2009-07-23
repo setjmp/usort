@@ -6,34 +6,34 @@ SRC=$(patsubst %,%.c,$(wildcard $(APPS)))
 all : $(APPS)
 
 u1  : csort-cmp.c ../swap.c ../csort.c $(SRC)  
-	gcc $(G) $(W) $(I) $(O) -o u1 u1.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o u1 u1.c 
 
 s1  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o s1 s1.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o s1 s1.c 
 
 u2  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o u2 u2.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o u2 u2.c 
 
 s2  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o s2 s2.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o s2 s2.c 
 
 f4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o f4 f4.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o f4 f4.c 
 
 s4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o s4 s4.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o s4 s4.c 
 
 u4  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o u4 u4.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o u4 u4.c 
 
 f8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o f8 f8.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o f8 f8.c 
 
 u8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o u8 u8.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o u8 u8.c 
 
 s8  : csort-cmp.c ../swap.c ../csort.c  $(SRC)
-	gcc $(G) $(W) $(I) $(O) -o s8 s8.c 
+	gcc $(G) $(W) $(I) $(LIB) $(O) -o s8 s8.c 
 
 
 clean :

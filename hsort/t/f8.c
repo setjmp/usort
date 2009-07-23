@@ -3,5 +3,5 @@
 #define TY double
 #define TY_FMT "%lf"
 #include "../ufunc/f8_hsort.c"
-#define HS f8_hsort
+#define CS f8_heap_sort
 #include "hsort-cmp.c"

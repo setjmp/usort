@@ -1,7 +1,7 @@
 /* c 2008 Andrew I. Schein.  All rights reserved.
    
    A fast general-purpose sorting smplemention based on Bentley and McIlroy, 1993's discussion
-   of quicksort.
+   of quicksort... altered into an introsort.
    
    Caller defines a few macros:
    Required: CSORT_TY, CSORT_LT
@@ -35,6 +35,7 @@
 */
 
 #include "../common/defs.c"
+#include <math.h>
 
 #ifndef CSORT
 #define CSORT
@@ -44,17 +45,26 @@
 #  define CSORT_LKG 
 #endif
 
-
 #ifndef CSORT_TY
 #  error "qsort.c imported without CSORT_TY definition."
 #endif
+
 
 /* can redefine with type_ */
 #ifndef CS_
 #  define CS_(name) CS_##name
 #endif
 
+/*
+#define HSORT_TY CSORT_TY 
+#define HS_(name) HS_##name
+*/
+
+#define CS_KEEP
+#include "../hsort/hsort.c"  
+#undef CS_KEEP
 #include "swap.c" 
+
 /* smaller than this value => insertion sort */
 #define CSORT_ISORT_SWITCH 32
 #define CSORT_NINTHER_SWITCH 64
@@ -78,23 +88,7 @@
                           CSORT_LT((a),(c)) ? (c) : (a))                \
      : (CSORT_LT((c),(b)) ? (b) : CSORT_LT((c),(a)) ? (c) : (a)))
 
-
-static inline void CS_(SWAP)(CSORT_TY *a, CSORT_TY *b) {
-    /* made a function since arguments tend to be incremented by caller */
-    CSORT_TY swap = *a;
-    *a            = *b;
-    *b            = swap;
-}
-
-
-/* static inline void CS_(isort)(CSORT_TY* a, const long long len) {     */
-/*     CSORT_TY *x=a+1,*y; */
-/*     for (;x < a + len;x++) */
-/*         for ( y=x; y>a && CSORT_LT(y,(y-1)); y-- ) */
-/*             CS_(SWAP)(y,y-1); */
-/* } */
-
-static inline void CS_(sort)(CSORT_TY *x, const long long orig_n) {
+static inline void CS_(intro_sort)(CSORT_TY *x, const long long orig_n, long intro_limit) {
     long long n = orig_n,s;
     long long ty_sz; /* ,l,h; */ 
     CSORT_TY *p0,*pm,*p1;
@@ -102,7 +96,8 @@ static inline void CS_(sort)(CSORT_TY *x, const long long orig_n) {
     CSORT_TY pivot;
  ssort_start:
     if (n < 0) fprintf(stderr,"sort error: n < 0: %lld\n",n),exit(1);
-    if (n <= CSORT_ISORT_SWITCH) return CS_(ins_sort)(x,n); 
+    if (n <= CSORT_ISORT_SWITCH) return CS_(ins_sort) (x,n); 
+    if (intro_limit <= 0)        return CS_(heap_sort)(x,n);  
     s=(n>>3), ty_sz=sizeof(CSORT_TY);
     p0=x;pm=x+(n>>1);p1=x+n-1; /* pivot candidates 0,1 from calculus, m for median */
     if (n >= CSORT_NINTHER_SWITCH) {
@@ -116,37 +111,41 @@ static inline void CS_(sort)(CSORT_TY *x, const long long orig_n) {
     c     = d = x + (n-1);
     for (;;) { 
         while (b <= c && CSORT_LE(b, &pivot)) { 
-            if (CSORT_EQ(b,&pivot)) CS_(SWAP)(a++,b);  /* repeated pivots treated separately */
+            if (CSORT_EQ(b,&pivot)) CS_(csort_swap)(a++,b); /* repeated pivots treated separately */
             b++; 
         }  
         while (c >= b && CSORT_LE(&pivot,c)) { 
-            if (CSORT_EQ(c,&pivot)) CS_(SWAP)(d--,c);  
+            if (CSORT_EQ(c,&pivot)) CS_(csort_swap)(d--,c);  
             c--; 
         }
         if (b > c) break;
-        CS_(SWAP)(b++,c--);
+        CS_(csort_swap)(b++,c--);
     }
     s = CSORT_MIN(a-x,b-a); /* repeat pivot movement */
-    //for (l=0,h=(b-x)-s; s ; s--) CS_(SWAP)(&x[l++],&x[h++]); 
     swap(x , b - s     , s * sizeof(CSORT_TY));
     s = CSORT_MIN(d-c, (x + n - 1) - d);
-    //for (l=b-x,h=n-s;s;s--) CS_(SWAP)(&x[l++],&x[h++]);
     swap(b, x + (n - s), s * sizeof(CSORT_TY));
     if ((b-a) < n-(d-c)) {  /* recurse on smaller first to bound memory usage. */
-        if ((b-a) > 1) CS_(sort)(x, (b-a));
+        if ((b-a) > 1) CS_(intro_sort)(x, (b-a),intro_limit-1);
         if ((n-(d-c)) > 1) { /* avoid procedure call on second recursion. */
             x = x+n-(d-c);
             n = d-c;
+            intro_limit--;
             goto ssort_start;
         }
     }
     else {
-        if ((d-c) > 1) CS_(sort)(x + n-(d-c), d-c);
+        if ((d-c) > 1) CS_(intro_sort)(x + n-(d-c), d-c,intro_limit-1);
         if ((b - a) > 1) {
             n = (b-a); 
+            intro_limit--;
             goto ssort_start; /* avoid procedure call on second recursion. */
         }
     }
+}
+
+static inline void CS_(sort)(CSORT_TY *x, const long long orig_n) {
+    CS_(intro_sort)(x, orig_n, log(orig_n) + 3);
 }
 
 #undef CS_

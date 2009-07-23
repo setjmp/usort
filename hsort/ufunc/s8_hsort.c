@@ -1,6 +1,6 @@
-#ifndef S8_HSORT
-#define S8_HSORT
-#define HSORT_TY long long
-#define HS_(name) s8_h## name
+#ifndef S8_CSORT
+#define S8_CSORT
+#define CSORT_TY long long
+#define CS_(name) s8_## name
 #include "../hsort.c"
 #endif

@@ -15,7 +15,7 @@ echo "REVERSED:  sorted integers N...1"
 echo "IDENT:     all values of the array are \"1\""
 
 echo "\nRANDOM"
-echo "N               mysort (secs)   GLIBC (secs)    %impr"
+echo "N               mysort (secs)   GLIBC (secs)    x-fold speedup"
 c=1
 while [ $c -lt $sz ] ; do
     ./${APP} ${i[$c]} RAND ${t[$c]}  

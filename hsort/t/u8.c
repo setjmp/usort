@@ -1,5 +1,5 @@
 #define TY unsigned long long
 #define TY_FMT "%llu"
 #include "../ufunc/u8_hsort.c"
-#define HS u8_hsort
+#define CS u8_heap_sort
 #include "hsort-cmp.c"

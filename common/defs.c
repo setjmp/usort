@@ -3,7 +3,7 @@ CSORT -- defs for comparison sorting.  Includer should undef all the macros
 */
 
 #ifndef CSORT_DEFS
-
+# define CSORT_DEFS
 # ifndef CS_
 # error __FILE__ " included without defining CS_ macro."
 # endif
@@ -35,8 +35,4 @@ static inline void CS_(ins_sort)(CSORT_TY* a, const long long len) {
             CS_(csort_swap)(y,y-1);
 }
 
-#else
-/* this checks ensures that undefs are complete-- will be important when using multiple
-   includes */
-#  error __FILE__ " included more than once without explicit undefs. "
 #endif /* CSORT */

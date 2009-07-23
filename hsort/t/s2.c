@@ -2,5 +2,5 @@
 #define TY short
 #define TY_FMT "%i"
 #include "../ufunc/s2_hsort.c"
-#define HS s2_hsort
+#define CS s2_heap_sort
 #include "hsort-cmp.c"

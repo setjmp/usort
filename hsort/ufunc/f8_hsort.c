@@ -1,6 +1,6 @@
-#ifndef F8_HSORT
-#define F8_HSORT
-#define HSORT_TY double
-#define HS_(name) f8_h## name
+#ifndef F8_CSORT
+#define F8_CSORT
+#define CSORT_TY double
+#define CS_(name) f8_## name
 #include "../hsort.c"
 #endif

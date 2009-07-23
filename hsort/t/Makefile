@@ -6,7 +6,6 @@ SRC=$(patsubst %,%.c,$(wildcard $(APPS)))
 all : $(APPS)
 	echo $(SRC)
 
-
 u1  : hsort-cmp.c  ../hsort.c $(SRC)  
 	gcc $(G) $(W) $(I) $(O) -o u1 u1.c 
 
