@@ -32,7 +32,7 @@ S4_SORT_LKG void s4_sort(int *a, const long sz) {
     long n, sum0=0 , sum1=0 , sum2=0 , tsum=0;
     int *reader, *writer, *buf = (int*) malloc(sz * sizeof(int));
     size_t *b0, *b1, *b2;
-    if (sz < 256) { s4_csort(a,sz); return; }
+    if (sz < 256) { free(buf); return s4_csort(a,sz); }
     b0   = malloc(HIST_SIZE * 3 * sizeof(size_t));
     b1   = b0 + HIST_SIZE;
     b2   = b1 + HIST_SIZE;

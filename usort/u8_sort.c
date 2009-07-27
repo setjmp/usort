@@ -36,7 +36,7 @@ U8_SORT_LKG void u8_sort(unsigned long long *a, const long sz) {
     unsigned long pos;
     unsigned long long n, sum0=0,sum1=0,sum2=0,sum3=0,sum4=0,sum5=0,tsum=0;
     unsigned long long *reader, *writer, *buf = (unsigned long long*) malloc(sz * sizeof(unsigned long long));
-    if (sz < 2048) return u8_csort(a,sz);
+    if (sz < 2048) { free(buf) ; return u8_csort(a,sz); }
     if (sz < 0) { fprintf(stderr,"u8_sort: sz of array < 0: %ld\n",sz); exit(1); }
     unsigned long long *b0, *b1, *b2, *b3, *b4, *b5;
     b0   = (unsigned long long*) malloc(HIST_SIZE * 6 * sizeof(unsigned long long));
