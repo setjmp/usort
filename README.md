@@ -3,10 +3,10 @@ See LICENSE file.
 
 # Update for 2021
 
-This repo disapeared from the internet when Bitbucket turned off its mercurial service.  I located a
+This repo disappeared from the internet when Bitbucket turned off its mercurial service.  I located a
 copy off of a backup and am reposting a converted git repository.
 
-The code was never "production ready", but it contains several interesting ideas and so I am
+The code was never "production-ready", but it contains several interesting ideas and so I am
 sharing for pedagogical purposes.  Personally, I find that on my current version of GCC the code
 does not compile as is.  Also, the last person who got it to compile on MacOS discovered that the
 code did not give correct answers.  No doubt this is related to very specific CPU architecture or
