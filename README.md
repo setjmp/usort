@@ -57,6 +57,7 @@ Below are complete comparisons of the usorts against the GNU lib C qsort straw
 man.  Timings were on my TravelMate 8210, a 32 bit intel machine with
 Intel(R) Core2 T7200 @ 2.00GHz and 2 gigs of RAM..
 
+```
 <result of tests pasted below>
 Univeral Sort Functions (usort or ufunc sorters) are fast sorting 
 algorithms specicialized for each of the basic C numeric types
@@ -161,4 +162,4 @@ N               usort (secs)    GLIBC qsort (secs)    x-fold speedup
     100000      0.0136390101    0.0677483838          4.97
    1000000      0.1982658889    0.7983115555          4.03
   10000000      2.3578315001    9.2898030000          3.94
-
+```
